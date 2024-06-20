@@ -6,3 +6,6 @@ pandas
 scikit-learn
 python-dotenv
 groq
+transformers
+accelerate
+bitsandbytes
