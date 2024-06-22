@@ -1,0 +1,26 @@
+# NOT WORKING DO NOT USE
+name: public_elastic_search
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.3
+    network_mode: host
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    mem_limit: 4GB
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  zrok:
+    image: openziti/zrok
+    network_mode: host
+    environment:
+      - ZROK_KEY=${MY_ZROK_KEY}
+    volumes:
+      - ~/.zrok:/.zrok
+    user: "${UID}"
+    command: zrok enable ${MY_ZROK_KEY} && share public --headless http://127.0.0.1:9200
+    depends_on:
+      - elasticsearch
