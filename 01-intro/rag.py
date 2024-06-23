@@ -37,7 +37,7 @@ def build_prompt(query: str, search_results: list) -> str:
     return prompt
 
 
-def llm(prompt: str, model: str) -> str | None:
+def llm(prompt: str, model: str = "llama3-8b-8192") -> str | None:
     chat_completion = client.chat.completions.create(
         messages=[
             {
